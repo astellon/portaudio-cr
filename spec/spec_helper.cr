@@ -1,2 +1,2 @@
 require "spec"
-require "../src/portaudio-cr"
+require "../src/portaudio.cr"

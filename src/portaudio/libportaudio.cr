@@ -1,4 +1,3 @@
-@[Link(ldflags: "#{__DIR__}/../../../dep/libportaudio.a -lrt -lm -lasound -ljack -pthread")]
 lib LibPortAudio
   # api data structures
   struct PaVersionInfo
@@ -211,46 +210,11 @@ lib LibPortAudio
   fun read_ring_buffer = PaUtil_ReadRingBuffer(rbuf : PaUtilRingBuffer*, data : Void*, element_count : RingBufferSizeT) : RingBufferSizeT
 end
 
+# This is not a main module. This is mainly used to wrap macros.
 module PortAudio
   extend self
 
-  # Make the version hash form numbers
-  def self.make_version_number(major, minor, subminor)
-    (((major) & 0xFF) << 16 | ((minor) & 0xFF) << 8 | ((subminor) & 0xFF))
-  end
-
-  # Print out the version of internal PortAudio library.
-  def pa_version(io = STDOUT)
-    io.puts String.new(LibPortAudio.get_version_text)
-  end
-
-  # Initialize Quartz module.
-  #
-  # PortAudio context is **AUTOMATICALLY** initialized when you include this module, so you don't need to call this.
-  def init
-    Quartz::Suppressor.suppress IO::FileDescriptor.new(2, blocking: true), LibPortAudio.init
-    at_exit { LibPortAudio.terminate }
-  end
-
-  # exec PortAudio function and handle PaError.
-  #
-  # Use for functions that return PaError.
-  macro except(code)
-    ( errno = {{code}} ) < 0 ? raise String.new(LibPortAudio.get_error_text(errno)) : errno
-  end
-
-  # type to pa format
-  #
-  # ```
-  # format(Int32) # => 2
-  # ```
-  {% for type in {UInt8, Int8, Int16, Int32, Float32} %}
-  def format(t : {{type}}.class)
-    LibPortAudio::Pa{{type}}
-  end
-  {% end %}
-
-  def format(type)
-    raise "Invalid Type for PaFormat"
+  def make_version_number(major : Int, minor : Int, subminor : Int)
+    (((major)&0xFF)<<16 | ((minor)&0xFF)<<8 | ((subminor)&0xFF))
   end
 end

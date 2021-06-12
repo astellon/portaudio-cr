@@ -1,6 +1,6 @@
-# TODO: Write documentation for `Portaudio`
+require "../dep/dep.cr"
+require "./portaudio/libportaudio.cr"
+
 module Portaudio
   VERSION = "0.1.0"
-
-  # TODO: Put your code here
 end
