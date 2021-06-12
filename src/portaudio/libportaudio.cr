@@ -1,3 +1,4 @@
+@[Link("portaudio")]
 lib LibPortAudio
   # api data structures
   struct PaVersionInfo
