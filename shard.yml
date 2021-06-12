@@ -1,0 +1,9 @@
+name: portaudio
+version: 0.1.0
+
+authors:
+  - astellon <22632787+astellon@users.noreply.github.com>
+
+crystal: 1.0.0
+
+license: MIT
