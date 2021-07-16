@@ -4,6 +4,9 @@ version: 0.1.0
 authors:
   - astellon <22632787+astellon@users.noreply.github.com>
 
-crystal: 1.0.0
+crystal: ">=1.0.0, <2.0.0"
+
+libraries:
+  libportaudio: ">= 19.6.0"
 
 license: MIT
